@@ -1,24 +1,29 @@
 import { productService } from "../services/index.js";
 import { CustomResponse, ResponseStatus } from "../utils/customResponse.js";
+import logger from "../config/logger.js";
+import { deleteCache } from "../utils/cache.js";
 
 export const getProducts = async (req, res, next) => {
   try {
+    logger.info(`Fetching all porducts by ${req.user?.email || "geust"}`);
     const products = await productService.getProducts(req.query);
+
     res
       .status(ResponseStatus.OK.code)
-      .json(new CustomResponse(ResponseStatus.OK, "Products", { ...products }));
-  } catch (error) {
-    next(error);
+      .json(new CustomResponse(ResponseStatus.OK, "Products fetched", products));
+  } catch (err) {
+    next(err);
   }
 };
 
 export const getProduct = async (req, res, next) => {
   try {
     const product = await productService.getProductById(req.params.id);
-    if (!product)
+    if (!product) {
       return res
         .status(ResponseStatus.NOT_FOUND.code)
         .json(new CustomResponse(ResponseStatus.NOT_FOUND, "Not Found!"));
+    }
     res
       .status(ResponseStatus.OK.code)
       .json(new CustomResponse(ResponseStatus.OK, "Product", product));
@@ -30,6 +35,7 @@ export const getProduct = async (req, res, next) => {
 export const createProduct = async (req, res, next) => {
   try {
     const product = await productService.createProduct(req.body, req.files);
+    await deleteCache("products:{}");
 
     res
       .status(ResponseStatus.RESOURCE_CREATED.code)
@@ -46,20 +52,10 @@ export const createProduct = async (req, res, next) => {
 };
 export const updateProduct = async (req, res, next) => {
   try {
-    const product = await productService.updateProduct(
-      req.params.id,
-      req.body,
-      req.files
-    );
+    const product = await productService.updateProduct(req.params.id, req.body, req.files);
     res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(
-          ResponseStatus.OK,
-          "Success Update a Producct",
-          product
-        )
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Success Update a Producct", product));
   } catch (error) {
     next(error);
   }

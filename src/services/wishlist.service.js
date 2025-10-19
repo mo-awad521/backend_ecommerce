@@ -6,6 +6,12 @@ export async function addToWishlist(userId, productId) {
   });
 }
 
+export const addToWishList = async (userId, productId) => {
+  return await prisma.wishlist.create({
+    data: { userId, productId },
+  });
+};
+
 export async function removeFromWishlist(userId, productId) {
   return prisma.wishlist.deleteMany({
     where: { userId, productId },

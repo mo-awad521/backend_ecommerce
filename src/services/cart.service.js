@@ -42,6 +42,6 @@ export const removeCartItem = async (cartItemId) => {
 
 export const clearCart = async (userId) => {
   const cart = await prisma.cart.findUnique({ where: { userId } });
-  if (!cart) return null;
+  if (!cart) {return null;}
   return await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
 };

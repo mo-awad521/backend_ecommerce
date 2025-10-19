@@ -1,4 +1,5 @@
 import prisma from "../config/db.js";
+import { CustomResponse, ResponseStatus } from "../utils/customResponse.js";
 
 export const createOrderFromCart = async (userId, paymentMethod) => {
   return await prisma.$transaction(async (tx) => {
@@ -88,9 +89,12 @@ export const cancelOrder = async (userId, orderId) => {
     where: { id: orderId, userId },
   });
 
-  if (!order) throw new Error("Order not found or not authorized");
-  if (order.status !== "PENDING")
+  if (!order) {
+    throw new Error("Order not found or not authorized");
+  }
+  if (order.status !== "PENDING") {
     throw new Error("Only pending orders can be canceled");
+  }
 
   return prisma.order.update({
     where: { id: orderId },
@@ -98,18 +102,21 @@ export const cancelOrder = async (userId, orderId) => {
   });
 };
 
-export const changeOrderStatus = async (
-  actorUserId,
-  actorRole,
-  orderId,
-  newStatus
-) => {
+const allowedTransitions = {
+  PENDING: ["PAID", "CANCELED"],
+  PAID: ["SHIPPED", "CANCELED"],
+  SHIPPED: ["DELIVERED", "RETURNED"],
+  DELIVERED: ["COMPLETED", "RETURNED"],
+};
+
+//useed
+export const changeOrderStatus = async (actorUserId, actorRole, orderId, newStatus) => {
   // normalize
   const orderIdNum = Number(orderId);
   if (!orderIdNum) {
-    const e = new Error("Invalid order id");
-    e.status = 400;
-    throw e;
+    const error = new Error("Invalid order id");
+    error.status = 400;
+    throw error;
   }
 
   // تحميل الطلب الحالي
@@ -123,8 +130,9 @@ export const changeOrderStatus = async (
   const currentStatus = order.status;
 
   // تأكد أن newStatus صحيحة (واحدة من enum)
+  const normalizedStatus = newStatus.toUpperCase();
   const validStatuses = Object.keys(allowedTransitions);
-  if (!validStatuses.includes(newStatus)) {
+  if (!validStatuses.includes(normalizedStatus)) {
     const e = new Error("Invalid status value");
     e.status = 400;
     throw e;
@@ -140,7 +148,7 @@ export const changeOrderStatus = async (
     }
 
     // العميل يستطيع فقط طلب إلغاء الطلب (cancelled) عندما يكون الطلب في pending أو processing
-    if (newStatus !== "cancelled") {
+    if (newStatus !== "CANCELED") {
       const e = new Error(
         "Customers can only cancel their orders; status changes must be done by admin"
       );
@@ -148,7 +156,7 @@ export const changeOrderStatus = async (
       throw e;
     }
 
-    if (!["pending", "processing"].includes(currentStatus)) {
+    if (!["PENDING", "processing"].includes(currentStatus)) {
       const e = new Error(`Cannot cancel order in "${currentStatus}" state`);
       e.status = 400;
       throw e;
@@ -157,9 +165,7 @@ export const changeOrderStatus = async (
     // إذا الفاعل admin: يتحقق من صحة الانتقال حسب allowedTransitions
     const allowed = allowedTransitions[currentStatus] || [];
     if (!allowed.includes(newStatus)) {
-      const e = new Error(
-        `Invalid status transition from "${currentStatus}" to "${newStatus}"`
-      );
+      const e = new Error(`Invalid status transition from "${currentStatus}" to "${newStatus}"`);
       e.status = 400;
       throw e;
     }
@@ -179,32 +185,30 @@ export const changeOrderStatus = async (
   return updated;
 };
 
-const allowedTransitions = {
-  PENDING: ["PAID", "CANCELED"],
-  PAID: ["SHIPPED", "CANCELED"],
-  SHIPPED: ["DELIVERED", "RETURNED"],
-  DELIVERED: ["COMPLETED", "RETURNED"],
-};
+// ######################################################################
+// unused now ---!!!!
+// export async function updateOrderStatus(orderId, newStatus, user) {
+//   const order = await prisma.order.findUnique({ where: { id: orderId } });
+//   if (!order) {
+//     throw new Error("Order not found");
+//   }
 
-export async function updateOrderStatus(orderId, newStatus, user) {
-  const order = await prisma.order.findUnique({ where: { id: orderId } });
-  if (!order) throw new Error("Order not found");
+//   // تحقق أن العميل يملك الطلب أو أنه admin
+//   if (user.role !== "ADMIN" && order.userId !== user.id) {
+//     throw new Error("Not authorized to update this order");
+//   }
 
-  // تحقق أن العميل يملك الطلب أو أنه admin
-  if (user.role !== "ADMIN" && order.userId !== user.id) {
-    throw new Error("Not authorized to update this order");
-  }
+//   const validNext = allowedTransitions[order.status] || [];
+//   if (!validNext.includes(newStatus)) {
+//     throw new Error(`Invalid transition from ${order.status} to ${newStatus}`);
+//   }
 
-  const validNext = allowedTransitions[order.status] || [];
-  if (!validNext.includes(newStatus)) {
-    throw new Error(`Invalid transition from ${order.status} to ${newStatus}`);
-  }
-
-  return prisma.order.update({
-    where: { id: orderId },
-    data: { status: newStatus },
-  });
-}
+//   return prisma.order.update({
+//     where: { id: orderId },
+//     data: { status: newStatus },
+//   });
+// }
+// ######################################################################
 
 //---------------------- Admin Featuers --------------------------
 

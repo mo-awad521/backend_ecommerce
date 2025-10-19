@@ -1,0 +1,61 @@
+[2025-10-09 20:27:38] ERROR: 
+Invalid `prisma.order.create()` invocation:
+
+{
+  data: {
+    userId: 141,
+    totalAmount: 280,
+    paymentMethod: "credit_card",
+                   ~~~~~~~~~~~~~
+    items: {
+      create: [
+        {
+          productId: 18,
+          quantity: 2,
+          price: new Prisma.Decimal("40")
+        },
+        {
+          productId: 21,
+          quantity: 1,
+          price: new Prisma.Decimal("200")
+        }
+      ]
+    }
+  }
+}
+
+Invalid value for argument `paymentMethod`. Expected PaymentMethod. - POST /api/orders
+[2025-10-09 20:35:47] ERROR: Cart is empty - POST /api/orders
+[2025-10-12 15:13:54] ERROR: Unexpected token '"', ""{\n  \"na"... is not valid JSON - POST /api/users/register
+[2025-10-12 15:13:54] ERROR: Unexpected token '"', ""{\n  \"na"... is not valid JSON - POST /api/users/register
+[2025-10-13 17:40:12] ERROR: No recipients defined - POST /api/users/resend-verification
+[2025-10-13 17:52:20] ERROR: No recipients defined - POST /api/users/resend-verification
+[2025-10-13 18:01:37] ERROR: No recipients defined - POST /api/users/resend-verification
+[2025-10-13 18:37:50] ERROR: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    email: undefined,
+?   id?: Int,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   role?: EnumRoleFilter | Role,
+?   createdAt?: DateTimeFilter | DateTime,
+?   isVerified?: BoolFilter | Boolean,
+?   verificationToken?: StringNullableFilter | String | Null,
+?   verificationTokenExpires?: DateTimeNullableFilter | DateTime | Null,
+?   resetPasswordToken?: StringNullableFilter | String | Null,
+?   resetPasswordExpires?: DateTimeNullableFilter | DateTime | Null,
+?   addresses?: AddressListRelationFilter,
+?   orders?: OrderListRelationFilter,
+?   cart?: CartNullableScalarRelationFilter | CartWhereInput | Null,
+?   wishlist?: WishlistListRelationFilter,
+?   reviews?: ReviewListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?. - POST /api/users/request-password-reset

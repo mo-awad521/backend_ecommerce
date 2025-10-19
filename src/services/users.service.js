@@ -6,14 +6,10 @@ import { CustomResponse, ResponseStatus } from "../utils/customResponse.js";
 import crypto from "crypto";
 import sendEmail from "../utils/sendEmail.js"; // utils لارسال الايميل
 
-export const register = async ({
-  name,
-  email,
-  password,
-  role = "CUSTOMER",
-}) => {
-  if (await prisma.user.findUnique({ where: { email } }))
+export const register = async ({ name, email, password, role = "CUSTOMER" }) => {
+  if (await prisma.user.findUnique({ where: { email } })) {
     throw new CustomResponse(ResponseStatus.FORBIDDEN, "Email already in use");
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -48,18 +44,7 @@ export const verifyEmail = async (token) => {
   });
 
   if (!user) {
-    const alreadyUser = await prisma.user.findFirst({
-      where: { isVerified: true },
-    });
-
-    if (alreadyUser) {
-      return { alreadyVerified: true, message: "Account already verified" };
-    }
-
-    throw new CustomResponse(
-      ResponseStatus.NOT_FOUND,
-      "Invalid or expired token"
-    );
+    throw new CustomResponse(ResponseStatus.NOT_FOUND, "Invalid or expired token");
   }
 
   if (user.isVerified) {
@@ -90,10 +75,7 @@ export const resendVerificationEmail = async (email) => {
   }
 
   if (user.isVerified) {
-    throw new CustomResponse(
-      ResponseStatus.BAD_REQUEST,
-      "Account already verified"
-    );
+    throw new CustomResponse(ResponseStatus.BAD_REQUEST, "Account already verified");
   }
 
   const verificationToken = crypto.randomBytes(32).toString("hex");
@@ -108,20 +90,20 @@ export const resendVerificationEmail = async (email) => {
 
   const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
 
-  await sendEmail({
-    to: user.email,
-    subject: "Verify Your Email (Resent Link)",
-    html: `<p>Please verify your email by clicking the link below:</p>
-           <a href="${verificationUrl}">${verificationUrl}</a>`,
-  });
+  await sendEmail(
+    user.email,
+    "Verify Your Account (Reaset lintk)",
+    `Click here to verify your account: ${verificationUrl}`
+  );
 
   return { message: "Verification email resent successfully" };
 };
 
 export const requestPasswordReset = async (email) => {
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user)
+  if (!user) {
     throw new CustomResponse(ResponseStatus.NOT_FOUND, "User not found");
+  }
 
   const resetToken = crypto.randomBytes(32).toString("hex");
   const expires = new Date(Date.now() + 3600000);
@@ -135,11 +117,7 @@ export const requestPasswordReset = async (email) => {
   });
 
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-  await sendEmail(
-    email,
-    "Reset Password",
-    `Reset your password here: ${resetUrl}`
-  );
+  await sendEmail(email, "Reset Password", `Reset your password here: ${resetUrl}`);
 
   return true;
 };
@@ -152,11 +130,9 @@ export const resetPassword = async (token, newPassword) => {
     },
   });
 
-  if (!user)
-    throw new CustomResponse(
-      ResponseStatus.NOT_FOUND,
-      "Invalid or expired token"
-    );
+  if (!user) {
+    throw new CustomResponse(ResponseStatus.NOT_FOUND, "Invalid or expired token");
+  }
 
   const hashedPassword = await bcrypt.hash(newPassword, 10);
 
@@ -181,10 +157,7 @@ export const login = async ({ email, password }) => {
   }
 
   if (!user.isVerified) {
-    throw new CustomResponse(
-      ResponseStatus.FORBIDDEN,
-      "Please verify your email first"
-    );
+    throw new CustomResponse(ResponseStatus.FORBIDDEN, "Please verify your email first");
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
@@ -192,11 +165,9 @@ export const login = async ({ email, password }) => {
     throw new CustomResponse(ResponseStatus.BAD_REQUEST, "Login Failed");
   }
 
-  const token = jwt.sign(
-    { userId: user.id, role: user.role },
-    process.env.JWT_SECRET,
-    { expiresIn: "7d" }
-  );
+  const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
 
   // هنا نرجع كائن واضح (لا نُغلفه بـ CustomResponse) — الController سيتولى بناء الـ response
   return { user, token };

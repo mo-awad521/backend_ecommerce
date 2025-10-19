@@ -42,24 +42,18 @@ export const login = async (req, res, next) => {
 
 export const verifyEmail = async (req, res, next) => {
   try {
-    const token = req.params.token;
+    const { token } = req.params;
     const result = await userService.verifyEmail(token);
 
     if (result.alreadyVerified) {
       return res
         .status(ResponseStatus.OK.code)
-        .json(new CustomResponse(ResponseStatus.OK, result.message, null));
+        .json(new CustomResponse(ResponseStatus.OK, result.message));
     }
 
     return res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(
-          ResponseStatus.OK,
-          "Email verified successfully!",
-          result
-        )
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Email verified successfully!", result));
   } catch (error) {
     if (error instanceof CustomResponse) {
       return res.status(error.status.code).json(error);
@@ -88,9 +82,7 @@ export const requestPasswordReset = async (req, res, next) => {
     await userService.requestPasswordReset(req.body.email);
     return res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(ResponseStatus.OK, "Password reset email sent!")
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Password reset email sent!"));
   } catch (error) {
     if (error instanceof CustomResponse) {
       return res.status(error.status.code).json(error);
@@ -104,9 +96,7 @@ export const resetPassword = async (req, res, next) => {
     await userService.resetPassword(req.params.token, req.body.password);
     return res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(ResponseStatus.OK, "Password reset successful!")
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Password reset successful!"));
   } catch (error) {
     if (error instanceof CustomResponse) {
       return res.status(error.status.code).json(error);
@@ -145,13 +135,12 @@ export const getAllUsers = async (req, res, next) => {
 export const getUserById = async (req, res, next) => {
   try {
     const user = await userService.getUserById(req.params.id);
-    if (!user)
+    if (!user) {
       return res
         .status(ResponseStatus.NOT_FOUND.code)
         .json(new CustomResponse(ResponseStatus.NOT_FOUND, "User Not Found! "));
-    res
-      .status(ResponseStatus.OK.code)
-      .json(new CustomResponse(ResponseStatus.OK, "User", user));
+    }
+    res.status(ResponseStatus.OK.code).json(new CustomResponse(ResponseStatus.OK, "User", user));
   } catch (error) {
     next(error);
   }
@@ -161,23 +150,16 @@ export const getUserById = async (req, res, next) => {
 export const updateUserRole = async (req, res, next) => {
   try {
     const { role } = req.body;
-    if (!role)
+    if (!role) {
       return res
         .status(ResponseStatus.BAD_REQUEST.code)
-        .json(
-          new CustomResponse(ResponseStatus.BAD_REQUEST, "Role is required")
-        );
+        .json(new CustomResponse(ResponseStatus.BAD_REQUEST, "Role is required"));
+    }
 
     const updatedUser = await userService.updateUserRole(req.params.id, role);
     res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(
-          ResponseStatus.OK,
-          "Role Update Successfully!",
-          updatedUser
-        )
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Role Update Successfully!", updatedUser));
   } catch (error) {
     next(error);
   }

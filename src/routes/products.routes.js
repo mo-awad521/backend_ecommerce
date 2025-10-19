@@ -4,13 +4,14 @@ import { productController } from "../controllers/index.js";
 import { productValidator } from "../validators/index.js";
 import { validate } from "../middlewares/validationRequest.js";
 import { upload } from "../middlewares/upload.js";
+import { cacheMiddleware } from "../middlewares/cacheMiddleware.js";
 
 // إضافة منتج مع صورة
 
 const router = Router();
 
-router.get("/", productController.getProducts);
-router.get("/:id", productController.getProduct);
+router.get("/", cacheMiddleware("products", 60 * 5), productController.getProducts);
+router.get("/:id", cacheMiddleware("product"), productController.getProduct);
 router.post(
   "/add",
   auth,

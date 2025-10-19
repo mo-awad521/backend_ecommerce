@@ -1,10 +1,10 @@
 import prisma from "../config/db.js";
 
 export const getDashboardStats = async () => {
-  // 1️⃣ عدد المستخدمين
+  // 1️⃣ Number of users
   const totalUsers = await prisma.user.count();
 
-  // 2️⃣ عدد الطلبات
+  // 2️⃣ Number of orders
   const totalOrders = await prisma.order.count();
 
   // 3️⃣ عدد الطلبات حسب الحالة

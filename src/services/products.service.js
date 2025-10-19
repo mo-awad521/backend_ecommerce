@@ -23,10 +23,7 @@ export const getProducts = async (query) => {
     AND: [
       search
         ? {
-            OR: [
-              { title: { contains: search } },
-              { description: { contains: search } },
-            ],
+            OR: [{ title: { contains: search } }, { description: { contains: search } }],
           }
         : {},
       categoryId ? { categoryId: Number(categoryId) } : {},
@@ -83,7 +80,9 @@ export const createProduct = async (data, files) => {
   const uploadPromises = files.map((file) =>
     cloudinary.uploader
       .upload_stream({ folder: "products" }, (error, result) => {
-        if (error) throw error;
+        if (error) {
+          throw error;
+        }
         return result.secure_url;
       })
       .end(file.buffer)
@@ -97,8 +96,11 @@ export const createProduct = async (data, files) => {
           const stream = cloudinary.uploader.upload_stream(
             { folder: "products" },
             (error, result) => {
-              if (error) reject(error);
-              else resolve(result.secure_url);
+              if (error) {
+                reject(error);
+              } else {
+                resolve(result.secure_url);
+              }
             }
           );
           stream.end(file.buffer);
@@ -130,9 +132,7 @@ export const updateProduct = async (id, data, files) => {
   const { title, description, price, stock, categoryId } = data;
 
   // لو فيه title جديد، اعمل slug
-  const slug = title
-    ? slugify(title, { lower: true, strict: true })
-    : undefined;
+  const slug = title ? slugify(title, { lower: true, strict: true }) : undefined;
 
   // 1️⃣ ارفع الصور الجديدة لو موجودة
   let newImages = [];
@@ -144,8 +144,11 @@ export const updateProduct = async (id, data, files) => {
             const stream = cloudinary.uploader.upload_stream(
               { folder: "products" },
               (error, result) => {
-                if (error) reject(error);
-                else resolve({ url: result.secure_url });
+                if (error) {
+                  reject(error);
+                } else {
+                  resolve({ url: result.secure_url });
+                }
               }
             );
             stream.end(file.buffer);
@@ -202,9 +205,7 @@ export const updateProductWithoutDeleteOldImage = async (id, data, files) => {
   const { title, description, price, stock, categoryId } = data;
 
   // slug جديد لو العنوان اتغير
-  const slug = title
-    ? slugify(title, { lower: true, strict: true })
-    : undefined;
+  const slug = title ? slugify(title, { lower: true, strict: true }) : undefined;
 
   // 1️⃣ ارفع الصور الجديدة لو موجودة
   let newImages = [];
@@ -216,8 +217,11 @@ export const updateProductWithoutDeleteOldImage = async (id, data, files) => {
             const stream = cloudinary.uploader.upload_stream(
               { folder: "products" },
               (error, result) => {
-                if (error) reject(error);
-                else resolve({ url: result.secure_url });
+                if (error) {
+                  reject(error);
+                } else {
+                  resolve({ url: result.secure_url });
+                }
               }
             );
             stream.end(file.buffer);

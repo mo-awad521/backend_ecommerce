@@ -4,20 +4,20 @@ import { CustomResponse, ResponseStatus } from "../utils/customResponse.js";
 export const auth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader)
-    return res
+    {return res
       .status(ResponseStatus.UNAUTHORIZED.code)
       .json(
         new CustomResponse(ResponseStatus.UNAUTHORIZED, "No token provided")
-      );
+      );}
 
   const token = authHeader.split(" ")[1]; // Bearer <token>
   //{ error: "Invalid token format" }
   if (!token)
-    return res
+    {return res
       .status(ResponseStatus.UNAUTHORIZED.code)
       .json(
         new CustomResponse(ResponseStatus.UNAUTHORIZED, "Invalid token format")
-      );
+      );}
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

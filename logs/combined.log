@@ -1,0 +1,158 @@
+[2025-10-09 18:02:49] INFO: ✅ Redis connected successfully
+[2025-10-09 18:02:49] INFO: ✅ Application started successfully
+[2025-10-09 18:09:36] INFO: ✅ Redis connected successfully
+[2025-10-09 18:09:36] INFO: ✅ Application started successfully
+[2025-10-09 18:12:12] INFO: ✅ Application started successfully
+[2025-10-09 18:12:12] INFO: ✅ Redis connected successfully
+[2025-10-09 18:15:18] INFO: ✅ Application started successfully
+[2025-10-09 18:15:18] INFO: ✅ Redis connected successfully
+[2025-10-09 18:15:58] INFO: 📧 Sending email to: test@example.com | Subject: Hello
+[2025-10-09 18:16:00] INFO: ✅ Email sent successfully to test@example.com
+[2025-10-09 18:16:42] INFO: Fetching all porducts by geust
+[2025-10-09 18:17:06] INFO: Fetching all porducts by geust
+[2025-10-09 18:17:09] INFO: Fetching all porducts by geust
+[2025-10-09 18:17:10] INFO: Fetching all porducts by geust
+[2025-10-09 18:17:29] INFO: Fetching all porducts by geust
+[2025-10-09 18:20:26] INFO: ✅ Application started successfully
+[2025-10-09 18:20:26] INFO: ✅ Redis connected successfully
+[2025-10-09 18:20:32] INFO: Fetching all porducts by geust
+[2025-10-09 18:23:40] INFO: ✅ Application started successfully
+[2025-10-09 18:23:40] INFO: ✅ Redis connected successfully
+[2025-10-09 18:23:50] INFO: Fetching all porducts by geust
+[2025-10-09 18:27:56] INFO: ✅ Application started successfully
+[2025-10-09 18:27:56] INFO: ✅ Redis connected successfully
+[2025-10-09 20:17:38] INFO: ✅ Application started successfully
+[2025-10-09 20:17:38] INFO: ✅ Redis connected successfully
+[2025-10-09 20:19:16] INFO: ✅ Application started successfully
+[2025-10-09 20:19:16] INFO: ✅ Redis connected successfully
+[2025-10-09 20:19:32] INFO: ✅ Application started successfully
+[2025-10-09 20:19:32] INFO: ✅ Redis connected successfully
+[2025-10-09 20:27:38] ERROR: 
+Invalid `prisma.order.create()` invocation:
+
+{
+  data: {
+    userId: 141,
+    totalAmount: 280,
+    paymentMethod: "credit_card",
+                   ~~~~~~~~~~~~~
+    items: {
+      create: [
+        {
+          productId: 18,
+          quantity: 2,
+          price: new Prisma.Decimal("40")
+        },
+        {
+          productId: 21,
+          quantity: 1,
+          price: new Prisma.Decimal("200")
+        }
+      ]
+    }
+  }
+}
+
+Invalid value for argument `paymentMethod`. Expected PaymentMethod. - POST /api/orders
+[2025-10-09 20:30:08] INFO: 📨 Order confirmation job added for user undefined
+[2025-10-09 20:30:08] INFO: 📧 Sending email to: engmohammadalawad@gmail.com | Subject: Order Confirmation
+[2025-10-09 20:30:10] INFO: ✅ Email sent successfully to engmohammadalawad@gmail.com
+[2025-10-09 20:35:05] INFO: ✅ Application started successfully
+[2025-10-09 20:35:05] INFO: ✅ Redis connected successfully
+[2025-10-09 20:35:13] INFO: ✅ Application started successfully
+[2025-10-09 20:35:13] INFO: ✅ Redis connected successfully
+[2025-10-09 20:35:47] ERROR: Cart is empty - POST /api/orders
+[2025-10-09 20:40:42] INFO: ✅ Redis connected successfully
+[2025-10-09 20:45:24] INFO: ✅ Application started successfully
+[2025-10-09 20:45:24] INFO: ✅ Redis connected successfully
+[2025-10-12 15:12:25] INFO: ✅ Application started successfully
+[2025-10-12 15:12:26] INFO: ✅ Redis connected successfully
+[2025-10-12 15:13:54] ERROR: Unexpected token '"', ""{\n  \"na"... is not valid JSON - POST /api/users/register
+[2025-10-12 15:13:54] ERROR: Unexpected token '"', ""{\n  \"na"... is not valid JSON - POST /api/users/register
+[2025-10-12 15:17:13] INFO: ✅ Application started successfully
+[2025-10-12 15:17:13] INFO: ✅ Redis connected successfully
+[2025-10-12 15:44:25] INFO: ✅ Application started successfully
+[2025-10-12 15:44:25] INFO: ✅ Redis connected successfully
+[2025-10-12 15:45:02] INFO: ✅ Application started successfully
+[2025-10-12 15:45:02] INFO: ✅ Redis connected successfully
+[2025-10-12 15:45:41] INFO: ✅ Application started successfully
+[2025-10-12 15:45:41] INFO: ✅ Redis connected successfully
+[2025-10-12 15:54:53] INFO: ✅ Application started successfully
+[2025-10-12 15:54:53] INFO: ✅ Redis connected successfully
+[2025-10-12 15:55:35] INFO: ✅ Application started successfully
+[2025-10-12 15:55:35] INFO: ✅ Redis connected successfully
+[2025-10-12 16:37:28] INFO: ✅ Application started successfully
+[2025-10-12 16:37:28] INFO: ✅ Redis connected successfully
+[2025-10-12 16:41:59] INFO: ✅ Application started successfully
+[2025-10-12 16:41:59] INFO: ✅ Redis connected successfully
+[2025-10-12 16:42:11] INFO: ✅ Application started successfully
+[2025-10-12 16:42:11] INFO: ✅ Redis connected successfully
+[2025-10-12 16:42:46] INFO: ✅ Application started successfully
+[2025-10-12 16:42:46] INFO: ✅ Redis connected successfully
+[2025-10-12 16:43:50] INFO: ✅ Application started successfully
+[2025-10-12 16:43:50] INFO: ✅ Redis connected successfully
+[2025-10-12 16:44:55] INFO: ✅ Application started successfully
+[2025-10-12 16:44:55] INFO: ✅ Redis connected successfully
+[2025-10-12 16:46:35] INFO: ✅ Application started successfully
+[2025-10-12 16:46:35] INFO: ✅ Redis connected successfully
+[2025-10-12 16:47:22] INFO: ✅ Application started successfully
+[2025-10-12 16:47:22] INFO: ✅ Redis connected successfully
+[2025-10-12 16:49:38] INFO: ✅ Application started successfully
+[2025-10-12 16:49:39] INFO: ✅ Redis connected successfully
+[2025-10-12 16:50:25] INFO: ✅ Application started successfully
+[2025-10-12 16:50:25] INFO: ✅ Redis connected successfully
+[2025-10-12 16:50:48] INFO: ✅ Application started successfully
+[2025-10-12 16:50:48] INFO: ✅ Redis connected successfully
+[2025-10-13 15:30:58] INFO: ✅ Application started successfully
+[2025-10-13 15:30:58] INFO: ✅ Redis connected successfully
+[2025-10-13 17:33:45] INFO: ✅ Application started successfully
+[2025-10-13 17:33:45] INFO: ✅ Redis connected successfully
+[2025-10-13 17:40:12] ERROR: No recipients defined - POST /api/users/resend-verification
+[2025-10-13 17:52:20] ERROR: No recipients defined - POST /api/users/resend-verification
+[2025-10-13 18:01:20] INFO: ✅ Application started successfully
+[2025-10-13 18:01:21] INFO: ✅ Redis connected successfully
+[2025-10-13 18:01:37] ERROR: No recipients defined - POST /api/users/resend-verification
+[2025-10-13 18:03:15] INFO: ✅ Application started successfully
+[2025-10-13 18:03:15] INFO: ✅ Redis connected successfully
+[2025-10-13 18:03:37] INFO: ✅ Application started successfully
+[2025-10-13 18:03:37] INFO: ✅ Redis connected successfully
+[2025-10-13 18:31:00] INFO: ✅ Application started successfully
+[2025-10-13 18:31:00] INFO: ✅ Redis connected successfully
+[2025-10-13 18:37:50] ERROR: 
+Invalid `prisma.user.findUnique()` invocation:
+
+{
+  where: {
+    email: undefined,
+?   id?: Int,
+?   AND?: UserWhereInput | UserWhereInput[],
+?   OR?: UserWhereInput[],
+?   NOT?: UserWhereInput | UserWhereInput[],
+?   name?: StringFilter | String,
+?   password?: StringFilter | String,
+?   role?: EnumRoleFilter | Role,
+?   createdAt?: DateTimeFilter | DateTime,
+?   isVerified?: BoolFilter | Boolean,
+?   verificationToken?: StringNullableFilter | String | Null,
+?   verificationTokenExpires?: DateTimeNullableFilter | DateTime | Null,
+?   resetPasswordToken?: StringNullableFilter | String | Null,
+?   resetPasswordExpires?: DateTimeNullableFilter | DateTime | Null,
+?   addresses?: AddressListRelationFilter,
+?   orders?: OrderListRelationFilter,
+?   cart?: CartNullableScalarRelationFilter | CartWhereInput | Null,
+?   wishlist?: WishlistListRelationFilter,
+?   reviews?: ReviewListRelationFilter
+  }
+}
+
+Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `email` arguments. Available options are marked with ?. - POST /api/users/request-password-reset
+[2025-10-13 19:54:36] INFO: ✅ Application started successfully
+[2025-10-13 19:54:36] INFO: ✅ Redis connected successfully
+[2025-10-13 19:56:41] INFO: ✅ Application started successfully
+[2025-10-13 19:56:41] INFO: ✅ Redis connected successfully
+[2025-10-13 20:02:17] INFO: ✅ Application started successfully
+[2025-10-13 20:02:17] INFO: ✅ Redis connected successfully
+[2025-10-13 20:02:49] INFO: ✅ Application started successfully
+[2025-10-13 20:02:50] INFO: ✅ Redis connected successfully
+[2025-10-13 20:03:28] INFO: ✅ Application started successfully
+[2025-10-13 20:03:29] INFO: ✅ Redis connected successfully

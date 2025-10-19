@@ -1,12 +1,19 @@
 import { orderService } from "../services/index.js";
 import { CustomResponse, ResponseStatus } from "../utils/customResponse.js";
+import { emailQueue } from "../jobs/queues/emailQueue.js";
+import logger from "../config/logger.js";
 
 export const createOrder = async (req, res, next) => {
   try {
-    const order = await orderService.createOrderFromCart(
-      req.user.userId,
-      req.body.paymentMethod
-    );
+    const order = await orderService.createOrderFromCart(req.user.userId, req.body.paymentMethod);
+    //const user = await prisma.user.findUnique({ where: { id: userId } });
+    //const to = user.email;
+    await emailQueue.add("sendOrderConfirmation", {
+      to: "engmohammadalawad@gmail.com", // أو استخدم البريد من user
+      subject: "Order Confirmation",
+      message: `Thank you for your order #${order.id}! Total: ${order.totalAmount}`,
+    });
+    logger.info(`📨 Order confirmation job added for user ${order.email}`);
     res
       .status(ResponseStatus.RESOURCE_CREATED.code)
       .json(
@@ -36,7 +43,9 @@ export const getOrderById = async (req, res) => {
     const userId = req.user.userId;
     const orderId = parseInt(req.params.id);
     const order = await orderService.getOrderById(userId, orderId);
-    if (!order) return res.status(404).json({ message: "Order not found" });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
     res.json(order);
   } catch (err) {
     res.status(403).json({ message: err.message });
@@ -50,13 +59,7 @@ export const cancelOrder = async (req, res, next) => {
 
     const order = await orderService.cancelOrder(userId, orderId);
 
-    res.json(
-      new CustomResponse(
-        ResponseStatus.OK,
-        "Order canceled successfully",
-        order
-      )
-    );
+    res.json(new CustomResponse(ResponseStatus.OK, "Order canceled successfully", order));
   } catch (error) {
     next(error);
   }
@@ -71,19 +74,8 @@ export const updateOrderStatus = async (req, res, next) => {
     const orderId = Number(req.params.id || req.params.orderId);
     const { status } = req.body;
 
-    const updated = await orderService.changeOrderStatus(
-      actorUserId,
-      actorRole,
-      orderId,
-      status
-    );
-    res.json(
-      new CustomResponse(
-        ResponseStatus.OK,
-        "Updated Status Successfully",
-        updated
-      )
-    );
+    const updated = await orderService.changeOrderStatus(actorUserId, actorRole, orderId, status);
+    res.json(new CustomResponse(ResponseStatus.OK, "Updated Status Successfully", updated));
   } catch (error) {
     next(error);
   }
@@ -97,13 +89,7 @@ export const getAllOrders = async (req, res, next) => {
 
     res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(
-          ResponseStatus.OK,
-          "Orders fetched successfully",
-          result
-        )
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Orders fetched successfully", result));
   } catch (err) {
     next(err);
   }

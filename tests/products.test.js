@@ -19,7 +19,7 @@ beforeAll(async () => {
   // لا نمسح جداول مهمة للاختبارات الأخرى — سنعمل بيانات منفصلة بأسماء مميزة
 
   // تأكد أنّ دوال cloudinary موجودة ثم غيّرها
-  if (!cloudinary.uploader) cloudinary.uploader = {};
+  if (!cloudinary.uploader) {cloudinary.uploader = {};}
 
   cloudinary.uploader.upload_stream = (options, callback) => {
     // نرجع كائن stream يشبه API الفعلي: stream.end(buffer)
