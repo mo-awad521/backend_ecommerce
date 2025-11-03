@@ -11,7 +11,7 @@ import { cacheMiddleware } from "../middlewares/cacheMiddleware.js";
 const router = Router();
 
 router.get("/", cacheMiddleware("products", 60 * 5), productController.getProducts);
-router.get("/:id", cacheMiddleware("product"), productController.getProduct);
+router.get("/:id", cacheMiddleware("product", 60 * 5), productController.getProduct);
 router.post(
   "/add",
   auth,

@@ -116,7 +116,7 @@ git clone https://github.com/mo-awad521/backend_ecommerce_mvc
 cd backend_ecommerce_mvc
 
 2. Install dependencies
-   
+
 ```
 npm install
 
@@ -144,11 +144,12 @@ npx prisma db seed
 ```
 
 5. Run server
-   
+
 ```
 npm run dev
 
 ```
+
 ---
 
 📬 API Documentation
@@ -197,7 +198,5 @@ Admin Reports
 👤 Mohammad Alawad
 
 GitHub: @mo-awad521
-
-LinkedIn: Your LinkedIn
 
 ---

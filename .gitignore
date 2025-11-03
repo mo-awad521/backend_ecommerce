@@ -4,7 +4,8 @@ node_modules
 .env.test
 nots.notes
 txt.js
-logs
+draft.txt
+src/logs
 /generated/prisma
 mysql-data.prisma
 

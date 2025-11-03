@@ -2,7 +2,7 @@
 import logger from "../config/logger.js";
 import { ResponseStatus, CustomResponse } from "../utils/customResponse.js";
 
-export const errorHandler = (err, req, res, _next) => {
+export const errorHandler = (err, req, res, next) => {
   logger.error(`${err.message} - ${req.method} ${req.url}`);
   console.error("Error caught:", err);
 
@@ -69,6 +69,7 @@ export const errorHandler = (err, req, res, _next) => {
         err.message
       )
     );
+  next();
 };
 
 export default errorHandler;

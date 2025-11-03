@@ -156,3 +156,25 @@ Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `ema
 [2025-10-13 20:02:50] INFO: ✅ Redis connected successfully
 [2025-10-13 20:03:28] INFO: ✅ Application started successfully
 [2025-10-13 20:03:29] INFO: ✅ Redis connected successfully
+[2025-10-21 18:18:10] INFO: ✅ Application started successfully
+[2025-10-21 18:18:11] INFO: ✅ Redis connected successfully
+[2025-10-21 18:19:42] INFO: Fetching all porducts by geust
+[2025-10-21 18:21:20] INFO: ✅ Application started successfully
+[2025-10-21 18:21:20] INFO: ✅ Redis connected successfully
+[2025-10-21 18:22:00] INFO: ✅ Application started successfully
+[2025-10-21 18:22:00] INFO: ✅ Redis connected successfully
+[2025-10-21 18:22:33] INFO: ✅ Application started successfully
+[2025-10-21 18:22:33] INFO: ✅ Redis connected successfully
+[2025-10-21 18:23:08] INFO: ✅ Application started successfully
+[2025-10-21 18:23:08] INFO: ✅ Redis connected successfully
+[2025-10-21 18:28:00] INFO: Fetching all porducts by geust
+[2025-10-21 18:31:16] INFO: ✅ Application started successfully
+[2025-10-21 18:31:16] INFO: ✅ Redis connected successfully
+[2025-10-21 18:33:08] INFO: ✅ Application started successfully
+[2025-10-21 18:33:09] INFO: ✅ Redis connected successfully
+[2025-10-21 18:33:28] INFO: ✅ Application started successfully
+[2025-10-21 18:33:28] INFO: ✅ Redis connected successfully
+[2025-10-21 18:34:59] INFO: ✅ Application started successfully
+[2025-10-21 18:34:59] INFO: ✅ Redis connected successfully
+[2025-10-21 18:35:56] INFO: ✅ Application started successfully
+[2025-10-21 18:35:56] INFO: ✅ Redis connected successfully

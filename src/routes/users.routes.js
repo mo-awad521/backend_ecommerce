@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { userController } from "../controllers/index.js";
 import { auth, isAdmin } from "../middlewares/authMiddleware.js";
+import { cacheMiddleware } from "../middlewares/cacheMiddleware.js";
 
 const router = Router();
 
@@ -19,10 +20,10 @@ router.post("/reset-password/:token", userController.resetPassword);
 router.post("/resend-verification", userController.resendVerificationEmail);
 
 // Profile
-router.get("/profile", auth, userController.getProfile);
+router.get("/profile", cacheMiddleware("profile", 60 * 5), auth, userController.getProfile);
 
 // Admin Routes
-router.get("/", userController.getAllUsers);
+router.get("/", cacheMiddleware("users", 60 * 5), auth, isAdmin, userController.getAllUsers);
 router.get("/:id", auth, isAdmin, userController.getUserById);
 router.put("/:id/role", auth, isAdmin, userController.updateUserRole);
 router.delete("/:id", auth, isAdmin, userController.deleteUser);

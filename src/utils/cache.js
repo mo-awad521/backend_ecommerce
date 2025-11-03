@@ -16,6 +16,7 @@ export const getCache = async (key) => {
     const value = await redisClient.get(key);
     if (value) {
       console.log(`⚡ Cache HIT: ${key}`);
+      console.log(key.products);
     } else {
       console.log(`🕵️ Cache MISS: ${key}`);
     }

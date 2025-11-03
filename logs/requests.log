@@ -210,3 +210,71 @@ Argument `where` of type UserWhereUniqueInput needs at least one of `id` or `ema
 [2025-10-13 20:02:50] INFO: ✅ Redis connected successfully
 [2025-10-13 20:03:28] INFO: ✅ Application started successfully
 [2025-10-13 20:03:29] INFO: ✅ Redis connected successfully
+[2025-10-21 18:18:10] INFO: ✅ Application started successfully
+[2025-10-21 18:18:11] INFO: ✅ Redis connected successfully
+[2025-10-21 18:19:42] INFO: Fetching all porducts by geust
+[2025-10-21 18:19:43] HTTP: GET /api/products 200 1796 - 1220.084 ms
+[2025-10-21 18:19:44] HTTP: GET /favicon.ico 404 150 - 3.012 ms
+[2025-10-21 18:20:15] HTTP: GET /api/products 200 1733 - 5.554 ms
+[2025-10-21 18:20:16] HTTP: GET /api/products 304 - - 2.283 ms
+[2025-10-21 18:20:17] HTTP: GET /api/products 304 - - 1.851 ms
+[2025-10-21 18:20:18] HTTP: GET /api/products 304 - - 2.183 ms
+[2025-10-21 18:20:20] HTTP: GET /api/products 304 - - 3.082 ms
+[2025-10-21 18:20:20] HTTP: GET /api/products 304 - - 2.030 ms
+[2025-10-21 18:20:21] HTTP: GET /api/products 304 - - 2.868 ms
+[2025-10-21 18:21:20] INFO: ✅ Application started successfully
+[2025-10-21 18:21:20] INFO: ✅ Redis connected successfully
+[2025-10-21 18:21:26] HTTP: GET /api/products 304 - - 7.700 ms
+[2025-10-21 18:22:00] INFO: ✅ Application started successfully
+[2025-10-21 18:22:00] INFO: ✅ Redis connected successfully
+[2025-10-21 18:22:04] HTTP: GET /api/products 304 - - 5.698 ms
+[2025-10-21 18:22:33] INFO: ✅ Application started successfully
+[2025-10-21 18:22:33] INFO: ✅ Redis connected successfully
+[2025-10-21 18:22:37] HTTP: GET /api/products 304 - - 8.240 ms
+[2025-10-21 18:23:08] INFO: ✅ Application started successfully
+[2025-10-21 18:23:08] INFO: ✅ Redis connected successfully
+[2025-10-21 18:23:12] HTTP: GET /api/products 304 - - 6.997 ms
+[2025-10-21 18:26:28] HTTP: GET /api/products/18 200 354 - 132.781 ms
+[2025-10-21 18:27:29] HTTP: GET /api/products/18 304 - - 377.575 ms
+[2025-10-21 18:27:50] HTTP: GET /api/products/18 200 300 - 3.313 ms
+[2025-10-21 18:27:52] HTTP: GET /api/products/18 304 - - 2.104 ms
+[2025-10-21 18:27:52] HTTP: GET /api/products/18 304 - - 1.958 ms
+[2025-10-21 18:27:53] HTTP: GET /api/products/18 304 - - 2.547 ms
+[2025-10-21 18:27:53] HTTP: GET /api/products/18 304 - - 2.640 ms
+[2025-10-21 18:27:53] HTTP: GET /api/products/18 304 - - 2.094 ms
+[2025-10-21 18:27:53] HTTP: GET /api/products/18 304 - - 2.134 ms
+[2025-10-21 18:27:54] HTTP: GET /api/products/18 304 - - 1.827 ms
+[2025-10-21 18:28:00] INFO: Fetching all porducts by geust
+[2025-10-21 18:28:00] HTTP: GET /api/products 200 1796 - 41.798 ms
+[2025-10-21 18:28:24] HTTP: GET /api/products/20 200 300 - 11.285 ms
+[2025-10-21 18:28:37] HTTP: GET /api/products/21 200 358 - 26.934 ms
+[2025-10-21 18:28:41] HTTP: GET /api/products/21 200 304 - 2.473 ms
+[2025-10-21 18:29:18] HTTP: GET /api/products 200 1733 - 2.340 ms
+[2025-10-21 18:29:25] HTTP: GET /api/products 304 - - 2.458 ms
+[2025-10-21 18:29:26] HTTP: GET /api/products 304 - - 2.549 ms
+[2025-10-21 18:29:27] HTTP: GET /api/products 304 - - 2.594 ms
+[2025-10-21 18:29:27] HTTP: GET /api/products 304 - - 1.859 ms
+[2025-10-21 18:29:28] HTTP: GET /api/products 304 - - 2.101 ms
+[2025-10-21 18:29:30] HTTP: GET /api/products 304 - - 2.000 ms
+[2025-10-21 18:29:30] HTTP: GET /api/products 304 - - 1.885 ms
+[2025-10-21 18:29:41] HTTP: GET /api/products/24 404 83 - 12.059 ms
+[2025-10-21 18:29:45] HTTP: GET /api/products/24 200 109 - 4.521 ms
+[2025-10-21 18:29:46] HTTP: GET /api/products/24 304 - - 2.480 ms
+[2025-10-21 18:29:47] HTTP: GET /api/products/24 304 - - 2.067 ms
+[2025-10-21 18:29:47] HTTP: GET /api/products/24 304 - - 1.724 ms
+[2025-10-21 18:29:48] HTTP: GET /api/products/24 304 - - 1.689 ms
+[2025-10-21 18:29:48] HTTP: GET /api/products/24 304 - - 1.769 ms
+[2025-10-21 18:29:49] HTTP: GET /api/products/24 304 - - 2.034 ms
+[2025-10-21 18:29:55] HTTP: GET /api/products 304 - - 1.873 ms
+[2025-10-21 18:31:16] INFO: ✅ Application started successfully
+[2025-10-21 18:31:16] INFO: ✅ Redis connected successfully
+[2025-10-21 18:33:08] INFO: ✅ Application started successfully
+[2025-10-21 18:33:09] INFO: ✅ Redis connected successfully
+[2025-10-21 18:33:28] INFO: ✅ Application started successfully
+[2025-10-21 18:33:28] INFO: ✅ Redis connected successfully
+[2025-10-21 18:33:48] HTTP: GET /api/profile/150 404 154 - 6.923 ms
+[2025-10-21 18:33:57] HTTP: GET /api/users/profile/150 404 160 - 2.076 ms
+[2025-10-21 18:34:59] INFO: ✅ Application started successfully
+[2025-10-21 18:34:59] INFO: ✅ Redis connected successfully
+[2025-10-21 18:35:56] INFO: ✅ Application started successfully
+[2025-10-21 18:35:56] INFO: ✅ Redis connected successfully
