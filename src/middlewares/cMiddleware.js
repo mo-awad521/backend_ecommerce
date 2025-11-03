@@ -9,16 +9,15 @@ export const cacheMiddleware = (prefix) => async (req, res, next) => {
       return res.json(JSON.parse(cached));
     }
 
-    // حفظ دالة send الأصلية
     const originalSend = res.json.bind(res);
     res.json = (data) => {
-      redisClient.setEx(key, 60 * 5, JSON.stringify(data)); // الكاش 5 دقائق
+      redisClient.setEx(key, 60 * 5, JSON.stringify(data));
       return originalSend(data);
     };
 
     next();
   } catch (err) {
     console.error("❌ Cache middleware error:", err);
-    next(); // لا توقف الطلب لو حصل خطأ
+    next();
   }
 };

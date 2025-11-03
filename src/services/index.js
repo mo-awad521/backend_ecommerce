@@ -3,7 +3,7 @@ export * as productService from "./products.service.js";
 export * as addressService from "./addresses.service.js";
 export * as categoryService from "./categories.service.js";
 export * as orderService from "./orders.Service.js";
-export * as cartService from "./cart.Service.js";
+export * as cartService from "./cart.service.js";
 export * as paymentService from "./payments.service.js";
 export * as wishlistService from "./wishlist.service.js";
 export * as reviewService from "./reviews.service.js";

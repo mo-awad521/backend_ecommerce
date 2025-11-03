@@ -119,7 +119,7 @@ export const getProfile = async (req, res, next) => {
 
 //------------ Admin Features -----------------
 
-// ✅ جلب جميع المستخدمين
+// ✅ Get All Users
 export const getAllUsers = async (req, res, next) => {
   try {
     const users = await userService.getAllUsers();
@@ -131,7 +131,7 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
-// ✅ جلب مستخدم واحد
+// ✅ Get one user
 export const getUserById = async (req, res, next) => {
   try {
     const user = await userService.getUserById(req.params.id);
@@ -146,7 +146,7 @@ export const getUserById = async (req, res, next) => {
   }
 };
 
-// ✅ تحديث دور المستخدم
+// ✅ Update user role
 export const updateUserRole = async (req, res, next) => {
   try {
     const { role } = req.body;

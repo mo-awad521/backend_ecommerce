@@ -1,4 +1,3 @@
-// tests/categories.test.js
 import request from "supertest";
 import app from "../src/app.js";
 import { PrismaClient } from "@prisma/client";
@@ -19,7 +18,6 @@ beforeEach(async () => {
 
   const password = await bcrypt.hash("password123", 10);
 
-  // 👤 إنشاء مستخدم customer
   await prisma.user.create({
     data: {
       name: "Customer User",
@@ -30,7 +28,6 @@ beforeEach(async () => {
     },
   });
 
-  // 👤 إنشاء مستخدم admin
   await prisma.user.create({
     data: {
       name: "Admin User",
@@ -41,7 +38,6 @@ beforeEach(async () => {
     },
   });
 
-  // 🔑 تسجيل دخول customer
   const customerRes = await request(app).post("/api/users/login").send({
     email: "customer@example.com",
     password: "password123",
@@ -49,7 +45,6 @@ beforeEach(async () => {
   expect(customerRes.statusCode).toBe(200);
   customerToken = customerRes.body.data.token;
 
-  // 🔑 تسجيل دخول admin
   const adminRes = await request(app).post("/api/users/login").send({
     email: "admin@example.com",
     password: "password123",
@@ -99,7 +94,6 @@ describe("E2E - Categories API", () => {
   });
 
   it("should get category by id", async () => {
-    // إنشاء category أولاً
     const createRes = await request(app)
       .post("/api/categories")
       .set("Authorization", `Bearer ${adminToken}`)
@@ -118,7 +112,6 @@ describe("E2E - Categories API", () => {
   });
 
   it("should allow admin to update category", async () => {
-    // إنشاء category أولاً
     const createRes = await request(app)
       .post("/api/categories")
       .set("Authorization", `Bearer ${adminToken}`)
@@ -136,7 +129,6 @@ describe("E2E - Categories API", () => {
   });
 
   it("should NOT allow customer to update category", async () => {
-    // إنشاء category أولاً
     const createRes = await request(app)
       .post("/api/categories")
       .set("Authorization", `Bearer ${adminToken}`)
@@ -153,7 +145,6 @@ describe("E2E - Categories API", () => {
   });
 
   it("should allow admin to delete category", async () => {
-    // إنشاء category أولاً
     const createRes = await request(app)
       .post("/api/categories")
       .set("Authorization", `Bearer ${adminToken}`)

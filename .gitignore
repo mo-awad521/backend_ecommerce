@@ -5,7 +5,7 @@ node_modules
 nots.notes
 txt.js
 draft.txt
-src/logs
+logs
 /generated/prisma
 mysql-data.prisma
 

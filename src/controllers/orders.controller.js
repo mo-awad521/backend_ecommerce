@@ -9,7 +9,7 @@ export const createOrder = async (req, res, next) => {
     //const user = await prisma.user.findUnique({ where: { id: userId } });
     //const to = user.email;
     await emailQueue.add("sendOrderConfirmation", {
-      to: "engmohammadalawad@gmail.com", // أو استخدم البريد من user
+      to: "engmohammadalawad@gmail.com", // Or use email from user
       subject: "Order Confirmation",
       message: `Thank you for your order #${order.id}! Total: ${order.totalAmount}`,
     });
@@ -67,7 +67,7 @@ export const cancelOrder = async (req, res, next) => {
 
 export const updateOrderStatus = async (req, res, next) => {
   try {
-    // مرونة: بعض التوكنات تعرض userId، وبعضها id
+    // Flexibility: Some tokens display userId, and some display id.
     const actorUserId = req.user?.userId || req.user?.id;
     const actorRole = req.user?.role;
 

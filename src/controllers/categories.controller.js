@@ -38,13 +38,7 @@ export const getCategory = async (req, res, next) => {
     //   );
     res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(
-          ResponseStatus.OK,
-          `Category With ID:${req.params.id}`,
-          category
-        )
-      );
+      .json(new CustomResponse(ResponseStatus.OK, `Category With ID:${req.params.id}`, category));
   } catch (error) {
     next(error);
   }
@@ -69,19 +63,10 @@ export const createCategory = async (req, res, next) => {
 
 export const updateCategory = async (req, res, next) => {
   try {
-    const category = await categoryService.updateCategory(
-      req.params.id,
-      req.body
-    );
+    const category = await categoryService.updateCategory(req.params.id, req.body);
     res
       .status(ResponseStatus.OK.code)
-      .json(
-        new CustomResponse(
-          ResponseStatus.OK,
-          "Cteagroy Updated Successfully ",
-          category
-        )
-      );
+      .json(new CustomResponse(ResponseStatus.OK, "Cteagroy Updated Successfully ", category));
   } catch (error) {
     next(error);
   }
@@ -92,6 +77,6 @@ export const deleteCategory = async (req, res, next) => {
     await categoryService.deleteCategory(req.params.id);
     res.json(new CustomResponse(ResponseStatus.OK, "Deleted"));
   } catch (error) {
-    next(error); // نمرر الخطأ للـ errorHandler
+    next(error); //pass the error to the errorHandler
   }
 };

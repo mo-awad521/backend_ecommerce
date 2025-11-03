@@ -7,13 +7,13 @@ export const getDashboardStats = async () => {
   // 2️⃣ Number of orders
   const totalOrders = await prisma.order.count();
 
-  // 3️⃣ عدد الطلبات حسب الحالة
+  // 3️⃣ Number of requests according to the situation
   const ordersByStatus = await prisma.order.groupBy({
     by: ["status"],
     _count: { status: true },
   });
 
-  // 4️⃣ إجمالي المبيعات الناجحة (من الطلبات اللي مدفوعاتها SUCCESS)
+  // 4️⃣ Total successful sales (from orders that have been paid for SUCCESS)
   const successfulRevenue = await prisma.order.aggregate({
     where: {
       payment: {
@@ -25,7 +25,7 @@ export const getDashboardStats = async () => {
     },
   });
 
-  // 5️⃣ أكثر 5 منتجات مبيعًا
+  // 5️⃣ Top 5 best-selling products
   const topProducts = await prisma.orderItem.groupBy({
     by: ["productId"],
     _sum: { quantity: true },
@@ -43,7 +43,7 @@ export const getDashboardStats = async () => {
     })
   );
 
-  // ✅ النتيجة النهائية
+  // ✅ Final Result
   return {
     users: { total: totalUsers },
     orders: { total: totalOrders, byStatus: ordersByStatus },

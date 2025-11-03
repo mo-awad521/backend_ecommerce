@@ -1,3 +1,3 @@
 // src/jobs/index.js
-import "./workers/emailWorker.js"; // فعّل الـ Worker
-export * from "./queues/emailQueue.js"; // صدّر الـ Queue
+import "./workers/emailWorker.js"; // Activate Worker
+export * from "./queues/emailQueue.js"; // Export the Queue

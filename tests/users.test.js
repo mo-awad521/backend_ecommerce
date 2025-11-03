@@ -25,10 +25,7 @@ describe("E2E - User Auth", () => {
     });
 
     expect(res.statusCode).toBe(201);
-    expect(res.body).toHaveProperty(
-      "message",
-      "User Registered, please verify your email!"
-    );
+    expect(res.body).toHaveProperty("message", "User Registered, please verify your email!");
     expect(res.body.data).toHaveProperty("isVerified", false);
   }, 10000);
 
@@ -36,7 +33,7 @@ describe("E2E - User Auth", () => {
     const password = "password123";
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ⬇️ أنشئ مستخدم مفعل مباشرة
+    // ⬇️ create verified user
     await prisma.user.create({
       data: {
         name: "Verified User",
@@ -83,7 +80,7 @@ describe("E2E - User Auth", () => {
     const password = "password123";
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ⬇️ أنشئ مستخدم غير مفعل
+    // ⬇️ create unverified user
     await prisma.user.create({
       data: {
         name: "Unverified User",
@@ -99,9 +96,6 @@ describe("E2E - User Auth", () => {
     });
 
     expect(res.statusCode).toBe(403);
-    expect(res.body).toHaveProperty(
-      "message",
-      "Please verify your email first"
-    );
+    expect(res.body).toHaveProperty("message", "Please verify your email first");
   }, 10000);
 });

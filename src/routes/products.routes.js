@@ -6,7 +6,7 @@ import { validate } from "../middlewares/validationRequest.js";
 import { upload } from "../middlewares/upload.js";
 import { cacheMiddleware } from "../middlewares/cacheMiddleware.js";
 
-// إضافة منتج مع صورة
+// add a product with an image
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.post(
   "/add",
   auth,
   isAdmin,
-  upload.array("images", 5), // رفع حتى 5 صور
+  upload.array("images", 5), // upload 5 images
   productValidator,
   validate,
   productController.createProduct
@@ -25,7 +25,7 @@ router.put(
   "/update/:id",
   auth,
   isAdmin,
-  upload.array("images", 5), // رفع حتى 5 صور
+  upload.array("images", 5),
   productValidator,
   validate,
   productController.updateProduct

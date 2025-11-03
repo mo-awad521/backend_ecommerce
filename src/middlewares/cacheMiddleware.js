@@ -2,9 +2,9 @@
 import redisClient from "../config/redis.js";
 
 /**
- * Middleware لإدارة الكاش بشكل تلقائي
- * @param {string} prefix - اسم التصنيف أو الكيان (مثل "products" أو "categories")
- * @param {number} ttl - وقت حياة الكاش بالثواني (افتراضي: 60 ثانية)
+ * Middleware for automatic cash management
+ * @param {string} prefix - The name of the category or entity (such as "products" or "categories")
+ * @param {number} ttl - Cache lifespan in seconds (default: 60 seconds)
  */
 export const cacheMiddleware = (prefix, ttl = 60) => {
   return async (req, res, next) => {

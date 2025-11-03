@@ -148,7 +148,7 @@ export const resetPassword = async (token, newPassword) => {
   return true;
 };
 
-// ---------- المطلب المهم: login (موحّد) ----------
+// ---------- Important requirement: login (unified) ----------
 export const login = async ({ email, password }) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
@@ -168,8 +168,7 @@ export const login = async ({ email, password }) => {
   const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
-
-  // هنا نرجع كائن واضح (لا نُغلفه بـ CustomResponse) — الController سيتولى بناء الـ response
+  // Here we return a clear object (we don't wrap it in CustomResponse) — the Controller will handle constructing the response
   return { user, token };
 };
 

@@ -5,14 +5,14 @@ import fs from "fs";
 
 const logDir = path.join(process.cwd(), "logs");
 
-// إنشاء مجلد logs إن لم يكن موجود
+// Create a logs folder if it doesn't already exist
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
 const { combine, timestamp, printf, colorize, _json } = winston.format;
 
-// تنسيق مخصص للسجلات النصية
+//Custom format for text records
 const logFormat = printf(({ level, message, timestamp, stack }) => {
   return `[${timestamp}] ${level.toUpperCase()}: ${stack || message}`;
 });
@@ -21,23 +21,23 @@ const logger = winston.createLogger({
   level: "info",
   format: combine(timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), logFormat),
   transports: [
-    // عرض في الـ console أثناء التطوير
+    // Displayed in console during development
     new winston.transports.Console({
       format: combine(colorize(), timestamp(), logFormat),
     }),
 
-    // حفظ الأخطاء في ملف خاص
+    // Save errors in a special file
     new winston.transports.File({
       filename: path.join(logDir, "error.log"),
       level: "error",
     }),
 
-    // حفظ جميع السجلات
+    // Save all records
     new winston.transports.File({
       filename: path.join(logDir, "combined.log"),
     }),
 
-    // سجل خاص بطلبات HTTP (سنضيفه بعد قليل)
+    // A log for HTTP requests (we will add it shortly)
     new winston.transports.File({
       filename: path.join(logDir, "requests.log"),
       level: "http",

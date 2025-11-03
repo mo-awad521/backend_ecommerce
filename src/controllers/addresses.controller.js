@@ -28,8 +28,8 @@ export const createAddress = async (req, res) => {
 
 export const updateAddress = async (req, res) => {
   try {
-    const userId = req.user.userId; // 👈 من JWT أو session
-    const { id } = req.params; // id العنوان
+    const userId = req.user.userId; //  from JWT or session
+    const { id } = req.params; // address id
     const updated = await addressService.updateAddress(userId, parseInt(id), req.body);
     res
       .status(ResponseStatus.OK.code)
@@ -43,8 +43,8 @@ export const updateAddress = async (req, res) => {
 
 export const deleteAddress = async (req, res) => {
   try {
-    const userId = req.user.userId; // 👈 من JWT أو session
-    const { id } = req.params; // id العنوان
+    const userId = req.user.userId;
+    const { id } = req.params;
     //console.log(userId);
     //console.log(id);
     await addressService.deleteAddress(userId, parseInt(id));

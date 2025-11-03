@@ -18,7 +18,6 @@ export const getProducts = async (query) => {
   const skip = (page - 1) * limit;
   const take = parseInt(limit);
 
-  // ✅ بناء شروط البحث
   const where = {
     AND: [
       search
@@ -33,10 +32,8 @@ export const getProducts = async (query) => {
     ],
   };
 
-  // ✅ عدد المنتجات
   const total = await prisma.product.count({ where });
 
-  // ✅ المنتجات
   const products = await prisma.product.findMany({
     where,
     skip,
@@ -76,7 +73,6 @@ export const createProduct = async (data, files) => {
 
   const slug = slugify(title, { lower: true, strict: true });
 
-  // ارفع الصور على Cloudinary
   const uploadPromises = files.map((file) =>
     cloudinary.uploader
       .upload_stream({ folder: "products" }, (error, result) => {
@@ -88,7 +84,6 @@ export const createProduct = async (data, files) => {
       .end(file.buffer)
   );
 
-  // ⚡️ لازم نحول الـ stream لوعود (Promises)
   const urls = await Promise.all(
     files.map(
       (file) =>
@@ -108,7 +103,6 @@ export const createProduct = async (data, files) => {
     )
   );
 
-  // أنشئ المنتج
   const product = await prisma.product.create({
     data: {
       title,
@@ -117,7 +111,6 @@ export const createProduct = async (data, files) => {
       price: parseFloat(price),
       stock: parseInt(stock),
       categoryId: categoryId ? parseInt(categoryId) : null,
-      // خزن الصور في جدول منفصل لو عندك ProductImage
       images: {
         create: urls.map((url) => ({ url })),
       },
@@ -131,10 +124,8 @@ export const createProduct = async (data, files) => {
 export const updateProduct = async (id, data, files) => {
   const { title, description, price, stock, categoryId } = data;
 
-  // لو فيه title جديد، اعمل slug
   const slug = title ? slugify(title, { lower: true, strict: true }) : undefined;
 
-  // 1️⃣ ارفع الصور الجديدة لو موجودة
   let newImages = [];
   if (files && files.length > 0) {
     newImages = await Promise.all(
@@ -157,15 +148,13 @@ export const updateProduct = async (id, data, files) => {
     );
   }
 
-  // 2️⃣ احذف الصور القديمة (لو عايز تحذفها فعليًا من Cloudinary كمان)
   if (newImages.length > 0) {
     const oldImages = await prisma.productImage.findMany({
       where: { productId: Number(id) },
     });
 
-    // احذف من Cloudinary (اختياري)
     for (const img of oldImages) {
-      const publicId = img.url.split("/").pop().split(".")[0]; // استخرج public_id من الرابط
+      const publicId = img.url.split("/").pop().split(".")[0];
       try {
         await cloudinary.uploader.destroy(`products/${publicId}`);
       } catch (err) {
@@ -173,13 +162,11 @@ export const updateProduct = async (id, data, files) => {
       }
     }
 
-    // امسح من DB
     await prisma.productImage.deleteMany({
       where: { productId: Number(id) },
     });
   }
 
-  // 3️⃣ حدث بيانات المنتج
   const updatedProduct = await prisma.product.update({
     where: { id: Number(id) },
     data: {
@@ -204,10 +191,8 @@ export const updateProduct = async (id, data, files) => {
 export const updateProductWithoutDeleteOldImage = async (id, data, files) => {
   const { title, description, price, stock, categoryId } = data;
 
-  // slug جديد لو العنوان اتغير
   const slug = title ? slugify(title, { lower: true, strict: true }) : undefined;
 
-  // 1️⃣ ارفع الصور الجديدة لو موجودة
   let newImages = [];
   if (files && files.length > 0) {
     newImages = await Promise.all(
@@ -230,7 +215,6 @@ export const updateProductWithoutDeleteOldImage = async (id, data, files) => {
     );
   }
 
-  // 2️⃣ حدث بيانات المنتج + أضف الصور الجديدة (لو فيه)
   const updatedProduct = await prisma.product.update({
     where: { id: Number(id) },
     data: {
@@ -253,7 +237,6 @@ export const updateProductWithoutDeleteOldImage = async (id, data, files) => {
 };
 
 export const deleteProduct = async (id) => {
-  // 1️⃣ هات الصور المرتبطة بالمنتج
   const product = await prisma.product.findUnique({
     where: { id: Number(id) },
     include: { images: true },
@@ -263,10 +246,8 @@ export const deleteProduct = async (id) => {
     throw new Error("❌ Product not found");
   }
 
-  // 2️⃣ امسح الصور من Cloudinary
   for (const img of product.images) {
     try {
-      // استخرج public_id من رابط الصورة
       const publicId = img.url.split("/").pop().split(".")[0];
       await cloudinary.uploader.destroy(`products/${publicId}`);
     } catch (err) {
@@ -274,7 +255,6 @@ export const deleteProduct = async (id) => {
     }
   }
 
-  // 3️⃣ امسح المنتج (مع الصور من DB)
   const deletedProduct = await prisma.product.delete({
     where: { id: Number(id) },
   });

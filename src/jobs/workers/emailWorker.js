@@ -11,7 +11,7 @@ export const emailWorker = new Worker(
 
     logger.info(`📧 Sending email to: ${to} | Subject: ${subject}`);
 
-    // 🕒 محاكاة عملية إرسال بريد إلكتروني
+    //  محاكاة عملية إرسال بريد إلكتروني
     // await new Promise((resolve) => setTimeout(resolve, 2000));
     await sendEmail(to, subject, message);
 
