@@ -1,7 +1,7 @@
 ---
 🛍️ E-commerce Backend API
 
-A fully featured E-commerce backend built with Node.js, Express.js, Prisma ORM, and MySQL, following clean MVC architecture.
+A fully featured E-commerce backend built with Node.js, Express.js, Prisma ORM, and MySQL, following clean Layered architecture.
 Supports Authentication, Role-based Authorization, Products, Orders, Payments, Wishlist, and Admin Dashboard.
 ---
 
